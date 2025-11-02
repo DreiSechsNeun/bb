@@ -8,11 +8,12 @@ Spotify = https://spotify.com/test
 1:cover = cover1.png
 1:download = YouTube.com
 1:trailer = https://youtu.be/UmAIiQw-SdY?si=lj6PuOYQoCyAmbwH
-1:price = 9,99
-1:audio1 = vorher.ogg
-1:audio2 = nachher.ogg
+1:price = 0
+1:audio1 = Vorher.mp3
+1:audio2 = Nachher.mp3
 1:bild1 = front.png
 1:bild2 = back.png
 1:bild3 = screenshot1.png
 1:bild4 = screenshot2.png
 1:beschreibung = Mit diesem professionellen Template erreicht jeder in kürzester Zeit die bestmöglichsten Ergebnisse.
+
