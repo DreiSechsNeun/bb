@@ -19,7 +19,9 @@
         :root {
             --primary: #000000;
             --secondary: #ffffff;
+            --secondary-light: #f8f9fa;
             --accent: #60A5FA;
+            --accent-light: #93C5FD;
             --text: #000000;
             --text-light: #6B7280;
             --text-lighter: #9CA3AF;
@@ -29,24 +31,38 @@
             --shadow: 0 4px 40px rgba(0, 0, 0, 0.08);
             --shadow-hover: 0 8px 60px rgba(0, 0, 0, 0.12);
             --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
         .dark-mode {
             --primary: #ffffff;
-            --secondary: #000000;
+            --secondary: #0a0a0a;
+            --secondary-light: #1a1a1a;
+            --secondary-dark: #111111;
+            --secondary-darker: #050505;
             --accent: #DC2626;
+            --accent-light: #EF4444;
             --text: #ffffff;
             --text-light: #D1D5DB;
             --text-lighter: #6B7280;
-            --border: #374151;
-            --shadow: 0 4px 40px rgba(0, 0, 0, 0.3);
-            --shadow-hover: 0 8px 60px rgba(0, 0, 0, 0.4);
+            --border: #2d2d2d;
+            --border-light: #3d3d3d;
+            --border-dark: #1a1a1a;
+            --shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 8px 60px rgba(0, 0, 0, 0.6);
+            --glass: rgba(20, 20, 20, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -61,12 +77,14 @@
 
         /* Header & Navigation */
         header {
-            background: var(--secondary);
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--glass-border);
             transition: var(--transition);
         }
 
@@ -117,12 +135,14 @@
             top: 80px;
             left: 0;
             width: 100%;
-            background-color: var(--secondary);
+            background-color: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             flex-direction: column;
             padding: 24px;
             box-shadow: var(--shadow);
             gap: 0;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .nav-links.active {
@@ -145,16 +165,16 @@
             color: var(--text-light);
             font-weight: 500;
             transition: var(--transition);
-            border-radius: 12px;
+            border-radius: 16px;
         }
 
         .nav-links a:hover {
             color: var(--text);
-            background: rgba(96, 165, 250, 0.05);
+            background: rgba(96, 165, 250, 0.1);
         }
 
         .dark-mode .nav-links a:hover {
-            background: rgba(220, 38, 38, 0.05);
+            background: rgba(220, 38, 38, 0.1);
         }
 
         .mobile-toggle {
@@ -170,11 +190,11 @@
         }
 
         .mobile-toggle:hover {
-            background: rgba(96, 165, 250, 0.05);
+            background: rgba(96, 165, 250, 0.1);
         }
 
         .dark-mode .mobile-toggle:hover {
-            background: rgba(220, 38, 38, 0.05);
+            background: rgba(220, 38, 38, 0.1);
         }
 
         .theme-toggle {
@@ -195,11 +215,11 @@
 
         .theme-toggle:hover {
             color: var(--text);
-            background: rgba(96, 165, 250, 0.05);
+            background: rgba(96, 165, 250, 0.1);
         }
 
         .dark-mode .theme-toggle:hover {
-            background: rgba(220, 38, 38, 0.05);
+            background: rgba(220, 38, 38, 0.1);
         }
 
         /* Hero Section */
@@ -211,12 +231,33 @@
             text-align: center;
             padding: 0 24px;
             margin-top: 80px;
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+            opacity: 0.05;
+            top: -50%;
+            left: -50%;
+            animation: pulse 15s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(5%, 5%) scale(1.1); }
         }
 
         .hero-content {
             width: 100%;
             max-width: 800px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-content h1 {
@@ -252,6 +293,23 @@
             cursor: pointer;
             font-size: 18px;
             box-shadow: 0 4px 20px rgba(96, 165, 250, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .dark-mode .btn {
@@ -324,6 +382,11 @@
             border: 1px solid var(--border);
         }
 
+        .dark-mode .product-card {
+            background: var(--secondary-dark);
+            border: 1px solid var(--border-light);
+        }
+
         .product-card:hover {
             transform: translateY(-8px);
             box-shadow: var(--shadow-hover);
@@ -331,7 +394,7 @@
 
         .product-image {
             height: 280px;
-            background: var(--secondary);
+            background: var(--secondary-light);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -340,6 +403,11 @@
             overflow: hidden;
             position: relative;
             border-bottom: 1px solid var(--border);
+        }
+
+        .dark-mode .product-image {
+            background: var(--secondary-darker);
+            border-bottom: 1px solid var(--border-light);
         }
 
         .product-image img {
@@ -553,7 +621,7 @@
             font-size: 14px;
         }
 
-        /* Audio Player Styling - Korrigiert */
+        /* Modern Audio Player Styling */
         .audio-section {
             margin-top: 32px;
         }
@@ -567,20 +635,26 @@
 
         .audio-player-wrapper {
             background: var(--secondary);
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
             transition: var(--transition);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .dark-mode .audio-player-wrapper {
+            background: var(--secondary-dark);
+            border: 1px solid var(--border-light);
         }
 
         .audio-player-wrapper:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
         }
 
         .audio-title {
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             color: var(--text);
             font-size: 18px;
             display: flex;
@@ -596,39 +670,111 @@
             width: 100%;
         }
 
-        /* Custom Audio Player Styling - Korrigiert */
-        .audio-player {
+        /* Modern Custom Audio Player */
+        .modern-audio-player {
             width: 100%;
+            height: 60px;
+            background: var(--secondary-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .modern-audio-player {
+            background: var(--secondary-darker);
+        }
+
+        .play-pause-btn {
+            width: 40px;
             height: 40px;
-        }
-
-        .audio-player audio {
-            width: 100%;
-            height: 100%;
-            outline: none;
-            border-radius: 0;
-        }
-
-        audio {
-            width: 100%;
-            border-radius: 0;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
             border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-right: 16px;
         }
 
-        audio::-webkit-media-controls-panel {
-            background: var(--secondary);
-            border-radius: 0;
-            border: 1px solid var(--border);
+        .play-pause-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
         }
 
-        audio::-webkit-media-controls-play-button {
-            background-color: var(--accent);
-            border-radius: 0;
+        .dark-mode .play-pause-btn:hover {
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
 
-        audio::-webkit-media-controls-current-time-display,
-        audio::-webkit-media-controls-time-remaining-display {
-            color: var(--text);
+        .progress-container {
+            flex: 1;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            margin: 0 16px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .dark-mode .progress-container {
+            background: var(--border-light);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .time-display {
+            font-size: 14px;
+            color: var(--text-light);
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            margin-left: 16px;
+        }
+
+        .volume-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .dark-mode .volume-slider {
+            background: var(--border-light);
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
         }
 
         /* Produktdetail Modal */
@@ -665,6 +811,11 @@
             transition: var(--transition);
             box-shadow: 0 40px 80px rgba(0,0,0,0.2);
             border: 1px solid var(--border);
+        }
+
+        .dark-mode .modal {
+            background: var(--secondary-dark);
+            border: 1px solid var(--border-light);
         }
 
         .modal-overlay.active .modal {
@@ -715,7 +866,7 @@
             flex: 1;
             min-width: 350px;
             height: 280px;
-            background: var(--secondary);
+            background: var(--secondary-light);
             border-radius: var(--radius);
             display: flex;
             align-items: center;
@@ -725,6 +876,11 @@
             overflow: hidden;
             position: relative;
             border: 1px solid var(--border);
+        }
+
+        .dark-mode .modal-image {
+            background: var(--secondary-darker);
+            border: 1px solid var(--border-light);
         }
 
         .modal-image img {
@@ -819,6 +975,11 @@
             border-top: 1px solid var(--border);
         }
 
+        .dark-mode footer {
+            background: var(--secondary-dark);
+            border-top: 1px solid var(--border-light);
+        }
+
         .footer-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -860,6 +1021,10 @@
             font-size: 14px;
             padding-top: 32px;
             border-top: 1px solid var(--border);
+        }
+
+        .dark-mode .copyright {
+            border-top: 1px solid var(--border-light);
         }
 
         .footer-logo {
@@ -1005,6 +1170,23 @@
                 width: 40px;
                 height: 40px;
                 font-size: 18px;
+            }
+
+            .modern-audio-player {
+                height: auto;
+                flex-wrap: wrap;
+                padding: 16px;
+            }
+
+            .time-display {
+                min-width: 80px;
+            }
+
+            .volume-control {
+                margin-top: 12px;
+                margin-left: 0;
+                width: 100%;
+                justify-content: center;
             }
         }
 
@@ -1284,6 +1466,127 @@
             }
         });
 
+        // Modern Audio Player Funktionen
+        function createModernAudioPlayer(audioFile, title) {
+            const audioPlayer = document.createElement('div');
+            audioPlayer.className = 'modern-audio-player';
+            
+            // Audio Element erstellen
+            const audio = new Audio(audioFile);
+            audio.preload = 'metadata';
+            
+            audioPlayer.innerHTML = `
+                <button class="play-pause-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="time-display">0:00 / 0:00</div>
+                <div class="volume-control">
+                    <button class="volume-btn">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1">
+                </div>
+            `;
+            
+            const playPauseBtn = audioPlayer.querySelector('.play-pause-btn');
+            const playPauseIcon = playPauseBtn.querySelector('i');
+            const progressContainer = audioPlayer.querySelector('.progress-container');
+            const progressBar = audioPlayer.querySelector('.progress-bar');
+            const timeDisplay = audioPlayer.querySelector('.time-display');
+            const volumeBtn = audioPlayer.querySelector('.volume-btn');
+            const volumeIcon = volumeBtn.querySelector('i');
+            const volumeSlider = audioPlayer.querySelector('.volume-slider');
+            
+            let isPlaying = false;
+            
+            // Format Zeit für Anzeige
+            function formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            }
+            
+            // Update Progress Bar und Zeit
+            function updateProgress() {
+                const progressPercent = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+                
+                timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+            }
+            
+            // Set Progress on Click
+            function setProgress(e) {
+                const width = this.clientWidth;
+                const clickX = e.offsetX;
+                const duration = audio.duration;
+                
+                audio.currentTime = (clickX / width) * duration;
+            }
+            
+            // Play/Pause Funktion
+            function togglePlay() {
+                if (isPlaying) {
+                    audio.pause();
+                    playPauseIcon.classList.remove('fa-pause');
+                    playPauseIcon.classList.add('fa-play');
+                } else {
+                    audio.play();
+                    playPauseIcon.classList.remove('fa-play');
+                    playPauseIcon.classList.add('fa-pause');
+                }
+                isPlaying = !isPlaying;
+            }
+            
+            // Volume Funktionen
+            function toggleMute() {
+                if (audio.volume > 0) {
+                    audio.volume = 0;
+                    volumeIcon.classList.remove('fa-volume-up');
+                    volumeIcon.classList.add('fa-volume-mute');
+                    volumeSlider.value = 0;
+                } else {
+                    audio.volume = 1;
+                    volumeIcon.classList.remove('fa-volume-mute');
+                    volumeIcon.classList.add('fa-volume-up');
+                    volumeSlider.value = 1;
+                }
+            }
+            
+            function setVolume() {
+                audio.volume = volumeSlider.value;
+                
+                if (audio.volume == 0) {
+                    volumeIcon.classList.remove('fa-volume-up');
+                    volumeIcon.classList.add('fa-volume-mute');
+                } else {
+                    volumeIcon.classList.remove('fa-volume-mute');
+                    volumeIcon.classList.add('fa-volume-up');
+                }
+            }
+            
+            // Event Listener
+            playPauseBtn.addEventListener('click', togglePlay);
+            audio.addEventListener('timeupdate', updateProgress);
+            audio.addEventListener('loadedmetadata', () => {
+                timeDisplay.textContent = `0:00 / ${formatTime(audio.duration)}`;
+            });
+            audio.addEventListener('ended', () => {
+                isPlaying = false;
+                playPauseIcon.classList.remove('fa-pause');
+                playPauseIcon.classList.add('fa-play');
+                progressBar.style.width = '0%';
+                timeDisplay.textContent = `0:00 / ${formatTime(audio.duration)}`;
+            });
+            progressContainer.addEventListener('click', setProgress);
+            volumeBtn.addEventListener('click', toggleMute);
+            volumeSlider.addEventListener('input', setVolume);
+            
+            return audioPlayer;
+        }
+
         // Daten aus data.txt laden
         let products = [];
         let aboutData = {};
@@ -1552,41 +1855,38 @@
                 }
             }
             
-            // Audio-Beispiele aktualisieren - Korrigiert
+            // Audio-Beispiele aktualisieren - Mit modernen Audio-Playern
             const modalAudio = document.getElementById('modalAudio');
             modalAudio.innerHTML = '';
             
-            // Hilfsfunktion zum Erstellen von Audio-Playern - Korrigiert
-            function createAudioPlayer(audioFile, index) {
+            // Hilfsfunktion zum Erstellen von modernen Audio-Playern
+            function createModernAudioPlayerWrapper(audioFile, index) {
                 if (!audioFile || audioFile === '') return;
                 
                 const audioPath = audioFile;
                 // Dateiname ohne Endung als Titel verwenden
-                const audioName = audioFile.split('.')[0];
+                const audioName = audioFile.split('/').pop().split('.')[0];
                 
-                const audioPlayer = document.createElement('div');
-                audioPlayer.className = 'audio-player-wrapper';
-                audioPlayer.innerHTML = `
+                const audioWrapper = document.createElement('div');
+                audioWrapper.className = 'audio-player-wrapper';
+                audioWrapper.innerHTML = `
                     <div class="audio-title">
-                        <i class="fas fa-play-circle"></i>
+                        <i class="fas fa-music"></i>
                         ${audioName}
                     </div>
-                    <div class="custom-audio-player">
-                        <audio controls preload="metadata" style="width: 100%; height: 40px;">
-                            <source src="${audioPath}" type="audio/mpeg">
-                            <source src="${audioPath}" type="audio/ogg">
-                            <source src="${audioPath}" type="audio/wav">
-                            Ihr Browser unterstützt das Audio-Element nicht.
-                        </audio>
-                    </div>
                 `;
-                modalAudio.appendChild(audioPlayer);
+                
+                // Modernen Audio-Player erstellen und hinzufügen
+                const modernPlayer = createModernAudioPlayer(audioPath, audioName);
+                audioWrapper.appendChild(modernPlayer);
+                
+                modalAudio.appendChild(audioWrapper);
             }
             
-            // Audio-Dateien hinzufügen - Mit Dateinamen als Titel
-            if (product.audio1) createAudioPlayer(product.audio1, 1);
-            if (product.audio2) createAudioPlayer(product.audio2, 2);
-            if (product.audio3) createAudioPlayer(product.audio3, 3);
+            // Audio-Dateien hinzufügen - Mit modernen Playern
+            if (product.audio1) createModernAudioPlayerWrapper(product.audio1, 1);
+            if (product.audio2) createModernAudioPlayerWrapper(product.audio2, 2);
+            if (product.audio3) createModernAudioPlayerWrapper(product.audio3, 3);
             
             // Modal öffnen
             modalOverlay.classList.add('active');
