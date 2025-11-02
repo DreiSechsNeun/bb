@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BabaBeats | Der Store</title>
+    <title>BabaBeats | Premium Musikprodukte</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* BabaBeats Schriftart */
         @font-face {
-            font-family: 'BABABEATS';
+            font-family: 'BabaBeats';
             src: url('font.otf') format('opentype'),
                  url('font.ttf') format('truetype');
             font-weight: normal;
@@ -1293,11 +1293,11 @@
                     <img src="logo.png" alt="BabaBeats Logo" class="footer-logo-img" onerror="this.style.display='none'">
                     <div class="footer-logo-text">BabaBeats</div>
                 </div>
-                <p style="color: var(--text-light); line-height: 1.7; font-size: 16px;">Producing für Anfänger.</p>
+                <p style="color: var(--text-light); line-height: 1.7; font-size: 16px;">Premium Musikprodukte für ambitionierte Produzenten.</p>
             </div>
         </div>
         <div class="copyright">
-            &copy; 2024 BABABEATS. Alle Rechte vorbehalten.
+            &copy; 2024 BabaBeats. Alle Rechte vorbehalten.
         </div>
     </footer>
 
@@ -1587,6 +1587,42 @@
             return audioPlayer;
         }
 
+        // Download-Funktionalität
+        function handleDownload(downloadValue) {
+            if (!downloadValue || downloadValue === '(link zum download)') {
+                return false;
+            }
+            
+            // Prüfen ob es ein Dateiname oder ein Link ist
+            const isUrl = downloadValue.match(/^(http|https):\/\//) || 
+                         downloadValue.match(/^\/\//) || 
+                         downloadValue.includes('.') && 
+                         (downloadValue.endsWith('.zip') || 
+                          downloadValue.endsWith('.rar') || 
+                          downloadValue.endsWith('.7z') || 
+                          downloadValue.endsWith('.pdf'));
+            
+            if (isUrl) {
+                // Es ist ein Link - in neuem Tab öffnen
+                window.open(downloadValue, '_blank');
+            } else {
+                // Es ist ein Dateiname - Download simulieren
+                const link = document.createElement('a');
+                link.href = downloadValue;
+                link.download = downloadValue;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Fallback: Wenn der Download nicht funktioniert, versuche es als Link
+                setTimeout(() => {
+                    window.open(downloadValue, '_blank');
+                }, 1000);
+            }
+            
+            return true;
+        }
+
         // Daten aus data.txt laden
         let products = [];
         let aboutData = {};
@@ -1767,7 +1803,7 @@
             const downloadBtn = document.getElementById('modal-download');
             if (product.download && product.download !== '(link zum download)') {
                 downloadBtn.textContent = product.price === "0" || product.price === "0,00" ? 'Kostenlos downloaden' : 'Jetzt kaufen';
-                downloadBtn.onclick = () => window.open(product.download, '_blank');
+                downloadBtn.onclick = () => handleDownload(product.download);
                 downloadBtn.disabled = false;
             } else {
                 downloadBtn.textContent = 'Download nicht verfügbar';
@@ -1911,5 +1947,4 @@
         document.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>
-
 </html>
