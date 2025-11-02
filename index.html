@@ -355,109 +355,77 @@
             color: var(--text);
         }
 
-        /* Über mich Section - Rechteckiges Bild */
-        .about-container {
-            display: flex;
-            align-items: center;
-            gap: 64px;
-            flex-wrap: wrap;
+        /* Bildergalerie Styling */
+        .image-gallery {
+            margin-top: 32px;
         }
 
-        .about-image {
-            flex: 1;
-            min-width: 400px;
-            height: 500px;
-            background: var(--secondary);
+        .gallery-container {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-lighter);
-            font-size: 64px;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 16px 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) var(--border);
+        }
+
+        .gallery-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .gallery-container::-webkit-scrollbar-track {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .gallery-container::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        .gallery-image {
+            flex: 0 0 auto;
+            width: 200px;
+            height: 150px;
+            border-radius: var(--radius);
             overflow: hidden;
-            position: relative;
             border: 1px solid var(--border);
-            /* Rechteckig statt abgerundet */
-            border-radius: 0;
+            transition: var(--transition);
+            cursor: pointer;
         }
 
-        .about-image img {
+        .gallery-image:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .about-content {
-            flex: 1;
-            min-width: 400px;
-        }
-
-        .about-content h2 {
-            font-size: 48px;
-            margin-bottom: 24px;
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-        }
-
-        .about-content p {
-            margin-bottom: 32px;
-            color: var(--text-light);
-            font-size: 18px;
-            line-height: 1.7;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 20px;
-            margin-top: 32px;
-        }
-
-        .social-links a {
-            color: var(--text-light);
-            font-size: 20px;
-            transition: var(--transition);
-            padding: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            border: 1px solid var(--border);
-        }
-
-        .social-links a:hover {
-            color: var(--text);
-            background: rgba(96, 165, 250, 0.05);
-            transform: translateY(-2px);
-        }
-
-        .dark-mode .social-links a:hover {
-            background: rgba(220, 38, 38, 0.05);
-        }
-
-        /* Audio Player Styling */
+        /* Audio Player Styling - Korrigiert */
         .audio-section {
             margin-top: 32px;
         }
 
         .audio-comparison {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            grid-template-columns: 1fr;
+            gap: 20px;
             margin-top: 24px;
         }
 
         .audio-player-wrapper {
             background: var(--secondary);
             border-radius: var(--radius);
-            padding: 32px;
+            padding: 24px;
             border: 1px solid var(--border);
             transition: var(--transition);
         }
 
         .audio-player-wrapper:hover {
-            transform: translateY(-4px);
+            transform: translateY(-2px);
             box-shadow: var(--shadow);
         }
 
@@ -477,10 +445,24 @@
 
         .custom-audio-player {
             width: 100%;
-            margin-top: 12px;
         }
 
-        /* Custom Audio Player Styling */
+        /* Custom Audio Player Styling - Korrigiert */
+        .audio-player {
+            width: 100%;
+            height: 50px;
+            border-radius: 25px;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+        }
+
+        .audio-player audio {
+            width: 100%;
+            height: 100%;
+            outline: none;
+        }
+
         audio {
             width: 100%;
             border-radius: 12px;
@@ -489,6 +471,11 @@
         audio::-webkit-media-controls-panel {
             background: var(--secondary);
             border-radius: 12px;
+        }
+
+        audio::-webkit-media-controls-play-button {
+            background-color: var(--accent);
+            border-radius: 50%;
         }
 
         /* Produktdetail Modal */
@@ -836,20 +823,14 @@
                 height: 32px;
             }
 
-            .about-container,
             .modal-header {
                 flex-direction: column;
                 gap: 32px;
             }
 
-            .about-image,
             .modal-image {
                 min-width: 100%;
-                height: 400px;
-            }
-
-            .audio-comparison {
-                grid-template-columns: 1fr;
+                height: 300px;
             }
 
             .modal-content {
@@ -859,6 +840,11 @@
             .products-grid {
                 grid-template-columns: 1fr;
                 gap: 24px;
+            }
+
+            .gallery-image {
+                width: 180px;
+                height: 135px;
             }
         }
 
@@ -883,6 +869,11 @@
                 padding: 12px 24px;
                 font-size: 14px;
             }
+
+            .gallery-image {
+                width: 160px;
+                height: 120px;
+            }
         }
     </style>
 </head>
@@ -900,7 +891,6 @@
             <ul class="nav-links">
                 <li><a href="#home">Startseite</a></li>
                 <li><a href="#products">Produkte</a></li>
-                <li><a href="#about">Über mich</a></li>
                 <li><a href="#contact">Kontakt</a></li>
                 <li>
                     <button class="theme-toggle" id="themeToggle">
@@ -939,24 +929,6 @@
         </div>
     </section>
 
-    <!-- Über mich Section - Rechteckiges Bild -->
-    <section class="section" id="about">
-        <h2 class="section-title">Über mich</h2>
-        <div class="about-container">
-            <div class="about-image">
-                <img src="logo.png" alt="BabaBeats" onerror="this.style.display='none'">
-                <i class="fas fa-user" style="display: none;"></i>
-            </div>
-            <div class="about-content">
-                <h2 id="about-name">Lade Informationen...</h2>
-                <p id="about-description">Lade Informationen...</p>
-                <div class="social-links" id="social-links">
-                    <!-- Social Links werden hier dynamisch geladen -->
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Kontakt Section -->
     <section class="section" id="contact">
         <h2 class="section-title">Kontakt</h2>
@@ -980,9 +952,6 @@
                     <div class="footer-logo-text">BabaBeats</div>
                 </div>
                 <p style="color: var(--text-light); line-height: 1.7; font-size: 16px;">Premium Musikprodukte für ambitionierte Produzenten.</p>
-                <div class="social-links" id="footer-social">
-                    <!-- Social Links werden hier dynamisch geladen -->
-                </div>
             </div>
         </div>
         <div class="copyright">
@@ -1019,6 +988,16 @@
                         </h3>
                         <div class="video-container" id="modalVideo">
                             <!-- Video wird hier dynamisch geladen -->
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <h3 class="media-title">
+                            <i class="fas fa-images"></i>
+                            Produkt Bilder
+                        </h3>
+                        <div class="gallery-container" id="modalGallery">
+                            <!-- Bilder werden hier dynamisch geladen -->
                         </div>
                     </div>
                     
@@ -1082,8 +1061,6 @@
             } catch (error) {
                 console.error('Fehler beim Laden der Daten:', error);
                 document.getElementById('productsContainer').innerHTML = '<div class="loading">Keine Produkte gefunden. Bitte data.txt Datei erstellen.</div>';
-                document.getElementById('about-name').textContent = 'Informationen nicht verfügbar';
-                document.getElementById('about-description').textContent = 'Bitte data.txt Datei mit Übermich Informationen erstellen.';
             }
         }
 
@@ -1097,7 +1074,7 @@
                 line = line.trim();
                 if (line === '') return;
 
-                // Übermich Daten
+                // Übermich Daten (werden jetzt ignoriert)
                 if (line.includes('Übermich = ')) {
                     aboutData.about = line.split('Übermich = ')[1];
                 } else if (line.includes('Email = ')) {
@@ -1132,62 +1109,14 @@
                 products.push(currentProduct);
             }
 
-            // Übermich Daten anzeigen
-            updateAboutSection();
-            
-            // Produkte rendern
-            renderProducts();
-        }
-
-        function updateAboutSection() {
-            // Übermich Name
-            if (aboutData.about) {
-                document.getElementById('about-name').textContent = aboutData.about;
-            }
-            
-            // Übermich Beschreibung - Jetzt nur eine Zeile
-            document.getElementById('about-description').textContent = aboutData.about ? 
-                `Musikproduzent und Sound Designer mit Leidenschaft für hochwertige Produkte, die Kreativen helfen, ihre Visionen zu verwirklichen.` : 
-                'Informationen nicht verfügbar';
-            
-            // Social Links
-            const socialLinksContainer = document.getElementById('social-links');
-            const footerSocialContainer = document.getElementById('footer-social');
-            socialLinksContainer.innerHTML = '';
-            footerSocialContainer.innerHTML = '';
-            
-            if (aboutData.insta) {
-                const instaLink = createSocialLink(aboutData.insta, 'instagram', 'fab fa-instagram');
-                socialLinksContainer.appendChild(instaLink);
-                footerSocialContainer.appendChild(instaLink.cloneNode(true));
-            }
-            
-            if (aboutData.youtube) {
-                const youtubeLink = createSocialLink(aboutData.youtube, 'youtube', 'fab fa-youtube');
-                socialLinksContainer.appendChild(youtubeLink);
-                footerSocialContainer.appendChild(youtubeLink.cloneNode(true));
-            }
-            
-            if (aboutData.spotify) {
-                const spotifyLink = createSocialLink(aboutData.spotify, 'spotify', 'fab fa-spotify');
-                socialLinksContainer.appendChild(spotifyLink);
-                footerSocialContainer.appendChild(spotifyLink.cloneNode(true));
-            }
-            
-            // Kontakt Email
+            // Kontakt Email setzen
             if (aboutData.email) {
                 const emailLink = document.getElementById('contact-email');
                 emailLink.href = `mailto:${aboutData.email}`;
             }
-        }
-
-        function createSocialLink(url, platform, iconClass) {
-            const link = document.createElement('a');
-            link.href = url;
-            link.target = '_blank';
-            link.innerHTML = `<i class="${iconClass}"></i>`;
-            link.title = platform;
-            return link;
+            
+            // Produkte rendern
+            renderProducts();
         }
 
         // Produkte rendern
@@ -1344,16 +1273,38 @@
                 modalVideo.innerHTML = '<p>Kein Trailer verfügbar</p>';
             }
             
-            // Audio-Beispiele aktualisieren
+            // Bildergalerie aktualisieren
+            const modalGallery = document.getElementById('modalGallery');
+            modalGallery.innerHTML = '';
+            
+            // Hilfsfunktion zum Erstellen von Galerie-Bildern
+            function createGalleryImage(imageFile) {
+                if (!imageFile || imageFile === '') return;
+                
+                const imagePath = imageFile;
+                const galleryImage = document.createElement('div');
+                galleryImage.className = 'gallery-image';
+                galleryImage.innerHTML = `
+                    <img src="${imagePath}" alt="Produkt Bild" onerror="this.style.display='none'">
+                `;
+                modalGallery.appendChild(galleryImage);
+            }
+            
+            // Bilder zur Galerie hinzufügen
+            if (product.bild1) createGalleryImage(product.bild1);
+            if (product.bild2) createGalleryImage(product.bild2);
+            if (product.bild3) createGalleryImage(product.bild3);
+            
+            // Audio-Beispiele aktualisieren - Korrigiert
             const modalAudio = document.getElementById('modalAudio');
             modalAudio.innerHTML = '';
             
-            // Hilfsfunktion zum Erstellen von Audio-Playern
-            function createAudioPlayer(audioFile, title) {
+            // Hilfsfunktion zum Erstellen von Audio-Playern - Korrigiert
+            function createAudioPlayer(audioFile, index) {
                 if (!audioFile || audioFile === '') return;
                 
                 const audioPath = audioFile;
-                const audioName = title || audioFile.split('.')[0];
+                const audioName = `Audio Beispiel ${index}`;
                 
                 const audioPlayer = document.createElement('div');
                 audioPlayer.className = 'audio-player-wrapper';
@@ -1363,9 +1314,10 @@
                         ${audioName}
                     </div>
                     <div class="custom-audio-player">
-                        <audio controls preload="metadata">
+                        <audio controls preload="metadata" style="width: 100%;">
                             <source src="${audioPath}" type="audio/mpeg">
                             <source src="${audioPath}" type="audio/ogg">
+                            <source src="${audioPath}" type="audio/wav">
                             Ihr Browser unterstützt das Audio-Element nicht.
                         </audio>
                     </div>
@@ -1373,10 +1325,10 @@
                 modalAudio.appendChild(audioPlayer);
             }
             
-            // Audio-Dateien hinzufügen mit sinnvollen Titeln
-            if (product.audio1) createAudioPlayer(product.audio1, "Vorher - Demo");
-            if (product.audio2) createAudioPlayer(product.audio2, "Nachher - Mit Template");
-            if (product.audio3) createAudioPlayer(product.audio3, "Sound Beispiele");
+            // Audio-Dateien hinzufügen - Ohne Demo/Template Labels
+            if (product.audio1) createAudioPlayer(product.audio1, 1);
+            if (product.audio2) createAudioPlayer(product.audio2, 2);
+            if (product.audio3) createAudioPlayer(product.audio3, 3);
             
             // Modal öffnen
             modalOverlay.classList.add('active');
