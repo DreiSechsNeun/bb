@@ -17,3 +17,5 @@ Spotify = https://spotify.com/test
 1:bild4 = screenshot2.png
 1:beschreibung = Mit diesem professionellen Template erreicht jeder in kürzester Zeit die bestmöglichsten Ergebnisse.
 
+2:name = Test
+2:cover = cover1.png
