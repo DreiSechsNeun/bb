@@ -6,6 +6,15 @@
     <title>BabaBeats | Premium Musikprodukte</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* BabaBeats Schriftart */
+        @font-face {
+            font-family: 'BabaBeats';
+            src: url('font.otf') format('opentype'),
+                 url('font.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         /* Grundlegende Einstellungen */
         :root {
             --primary: #000000;
@@ -92,6 +101,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            font-family: 'BabaBeats', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         .dark-mode .logo-text {
@@ -102,24 +112,40 @@
         }
 
         .nav-links {
+            display: none;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background-color: var(--secondary);
+            flex-direction: column;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            gap: 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-links.active {
             display: flex;
-            list-style: none;
-            align-items: center;
-            gap: 8px;
         }
 
         .nav-links li {
-            margin-left: 0;
+            margin: 0;
+            width: 100%;
+            list-style: none;
         }
 
         .nav-links a {
+            display: block;
+            text-align: left;
+            padding: 16px 24px;
+            margin: 4px 0;
+            font-size: 18px;
             text-decoration: none;
             color: var(--text-light);
             font-weight: 500;
             transition: var(--transition);
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 20px;
+            border-radius: 12px;
         }
 
         .nav-links a:hover {
@@ -132,13 +158,15 @@
         }
 
         .mobile-toggle {
-            display: none;
+            display: block;
             font-size: 20px;
             cursor: pointer;
             color: var(--text);
             padding: 12px;
             border-radius: 50%;
             transition: var(--transition);
+            background: none;
+            border: none;
         }
 
         .mobile-toggle:hover {
@@ -156,9 +184,13 @@
             font-size: 18px;
             cursor: pointer;
             transition: var(--transition);
-            padding: 12px;
+            padding: 8px;
             border-radius: 50%;
-            margin-left: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .theme-toggle:hover {
@@ -392,6 +424,7 @@
             border: 1px solid var(--border);
             transition: var(--transition);
             cursor: pointer;
+            position: relative;
         }
 
         .gallery-image:hover {
@@ -402,6 +435,122 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .gallery-fullscreen-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-image:hover .gallery-fullscreen-btn {
+            opacity: 1;
+        }
+
+        /* Fullscreen Gallery */
+        .fullscreen-gallery {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+
+        .fullscreen-gallery.active {
+            display: flex;
+        }
+
+        .fullscreen-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .fullscreen-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .gallery-prev {
+            left: 20px;
+        }
+
+        .gallery-next {
+            right: 20px;
+        }
+
+        .gallery-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .gallery-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
         }
 
         /* Audio Player Styling - Korrigiert */
@@ -418,8 +567,8 @@
 
         .audio-player-wrapper {
             background: var(--secondary);
-            border-radius: var(--radius);
-            padding: 24px;
+            border-radius: 12px;
+            padding: 20px;
             border: 1px solid var(--border);
             transition: var(--transition);
         }
@@ -450,32 +599,36 @@
         /* Custom Audio Player Styling - Korrigiert */
         .audio-player {
             width: 100%;
-            height: 50px;
-            border-radius: 25px;
-            background: var(--secondary);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
+            height: 40px;
         }
 
         .audio-player audio {
             width: 100%;
             height: 100%;
             outline: none;
+            border-radius: 0;
         }
 
         audio {
             width: 100%;
-            border-radius: 12px;
+            border-radius: 0;
+            border: none;
         }
 
         audio::-webkit-media-controls-panel {
             background: var(--secondary);
-            border-radius: 12px;
+            border-radius: 0;
+            border: 1px solid var(--border);
         }
 
         audio::-webkit-media-controls-play-button {
             background-color: var(--accent);
-            border-radius: 50%;
+            border-radius: 0;
+        }
+
+        audio::-webkit-media-controls-current-time-display,
+        audio::-webkit-media-controls-time-remaining-display {
+            color: var(--text);
         }
 
         /* Produktdetail Modal */
@@ -729,6 +882,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            font-family: 'BabaBeats', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         .dark-mode .footer-logo-text {
@@ -767,42 +921,36 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
+        @media (min-width: 769px) {
             .nav-links {
-                display: none;
-                position: absolute;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background-color: var(--secondary);
-                flex-direction: column;
-                padding: 24px;
-                box-shadow: var(--shadow);
-                gap: 0;
-                border-bottom: 1px solid var(--border);
-            }
-
-            .nav-links.active {
                 display: flex;
+                position: static;
+                flex-direction: row;
+                background: none;
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                width: auto;
+                gap: 8px;
             }
 
             .nav-links li {
-                margin: 0;
-                width: 100%;
+                width: auto;
             }
 
             .nav-links a {
-                display: block;
-                text-align: left;
-                padding: 16px 24px;
-                margin: 4px 0;
-                font-size: 18px;
+                padding: 12px 24px;
+                margin: 0;
+                font-size: 16px;
+                text-align: center;
             }
 
             .mobile-toggle {
-                display: block;
+                display: none;
             }
+        }
 
+        @media (max-width: 768px) {
             .hero-content h1 {
                 font-size: 48px;
             }
@@ -846,6 +994,18 @@
                 width: 180px;
                 height: 135px;
             }
+
+            .gallery-nav {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .gallery-close {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -885,9 +1045,9 @@
                 <img src="logo.png" alt="BabaBeats Logo" class="logo-img" onerror="this.style.display='none'">
                 <a href="#" class="logo-text">BabaBeats</a>
             </div>
-            <div class="mobile-toggle">
+            <button class="mobile-toggle">
                 <i class="fas fa-bars"></i>
-            </div>
+            </button>
             <ul class="nav-links">
                 <li><a href="#home">Startseite</a></li>
                 <li><a href="#products">Produkte</a></li>
@@ -1015,6 +1175,23 @@
         </div>
     </div>
 
+    <!-- Fullscreen Gallery -->
+    <div class="fullscreen-gallery">
+        <button class="gallery-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="gallery-nav gallery-prev">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="gallery-nav gallery-next">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="fullscreen-content">
+            <img class="fullscreen-image" src="" alt="">
+        </div>
+        <div class="gallery-counter"></div>
+    </div>
+
     <script>
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
@@ -1043,6 +1220,68 @@
         // Mobile Navigation Toggle
         document.querySelector('.mobile-toggle').addEventListener('click', function() {
             document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Fullscreen Gallery Funktionen
+        const fullscreenGallery = document.querySelector('.fullscreen-gallery');
+        const fullscreenImage = document.querySelector('.fullscreen-image');
+        const galleryClose = document.querySelector('.gallery-close');
+        const galleryPrev = document.querySelector('.gallery-prev');
+        const galleryNext = document.querySelector('.gallery-next');
+        const galleryCounter = document.querySelector('.gallery-counter');
+
+        let currentGalleryImages = [];
+        let currentGalleryIndex = 0;
+
+        function openFullscreenGallery(images, startIndex) {
+            currentGalleryImages = images;
+            currentGalleryIndex = startIndex;
+            updateFullscreenImage();
+            fullscreenGallery.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateFullscreenImage() {
+            if (currentGalleryImages.length > 0) {
+                fullscreenImage.src = currentGalleryImages[currentGalleryIndex];
+                galleryCounter.textContent = `${currentGalleryIndex + 1} / ${currentGalleryImages.length}`;
+            }
+        }
+
+        function nextImage() {
+            if (currentGalleryImages.length > 0) {
+                currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryImages.length;
+                updateFullscreenImage();
+            }
+        }
+
+        function prevImage() {
+            if (currentGalleryImages.length > 0) {
+                currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+                updateFullscreenImage();
+            }
+        }
+
+        galleryClose.addEventListener('click', () => {
+            fullscreenGallery.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        galleryNext.addEventListener('click', nextImage);
+        galleryPrev.addEventListener('click', prevImage);
+
+        // Keyboard Navigation für Fullscreen Gallery
+        document.addEventListener('keydown', (e) => {
+            if (fullscreenGallery.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    fullscreenGallery.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                } else if (e.key === 'ArrowRight') {
+                    nextImage();
+                } else if (e.key === 'ArrowLeft') {
+                    prevImage();
+                }
+            }
         });
 
         // Daten aus data.txt laden
@@ -1273,27 +1512,45 @@
                 modalVideo.innerHTML = '<p>Kein Trailer verfügbar</p>';
             }
             
-            // Bildergalerie aktualisieren
+            // Bildergalerie aktualisieren - Bis zu 10 Bilder
             const modalGallery = document.getElementById('modalGallery');
             modalGallery.innerHTML = '';
             
+            const galleryImages = [];
+            
             // Hilfsfunktion zum Erstellen von Galerie-Bildern
-            function createGalleryImage(imageFile) {
+            function createGalleryImage(imageFile, index) {
                 if (!imageFile || imageFile === '') return;
                 
                 const imagePath = imageFile;
+                galleryImages.push(imagePath);
+                
                 const galleryImage = document.createElement('div');
                 galleryImage.className = 'gallery-image';
                 galleryImage.innerHTML = `
-                    <img src="${imagePath}" alt="Produkt Bild" onerror="this.style.display='none'">
+                    <img src="${imagePath}" alt="Produkt Bild ${index}" onerror="this.style.display='none'">
+                    <button class="gallery-fullscreen-btn">
+                        <i class="fas fa-expand"></i>
+                    </button>
                 `;
+                
+                // Fullscreen Event Listener
+                const fullscreenBtn = galleryImage.querySelector('.gallery-fullscreen-btn');
+                fullscreenBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openFullscreenGallery(galleryImages, index - 1);
+                });
+                
                 modalGallery.appendChild(galleryImage);
             }
             
-            // Bilder zur Galerie hinzufügen
-            if (product.bild1) createGalleryImage(product.bild1);
-            if (product.bild2) createGalleryImage(product.bild2);
-            if (product.bild3) createGalleryImage(product.bild3);
+            // Alle verfügbaren Bilder hinzufügen (bis zu 10)
+            for (let i = 1; i <= 10; i++) {
+                const imageKey = `bild${i}`;
+                if (product[imageKey]) {
+                    createGalleryImage(product[imageKey], i);
+                }
+            }
             
             // Audio-Beispiele aktualisieren - Korrigiert
             const modalAudio = document.getElementById('modalAudio');
@@ -1304,7 +1561,8 @@
                 if (!audioFile || audioFile === '') return;
                 
                 const audioPath = audioFile;
-                const audioName = `Audio Beispiel ${index}`;
+                // Dateiname ohne Endung als Titel verwenden
+                const audioName = audioFile.split('.')[0];
                 
                 const audioPlayer = document.createElement('div');
                 audioPlayer.className = 'audio-player-wrapper';
@@ -1314,7 +1572,7 @@
                         ${audioName}
                     </div>
                     <div class="custom-audio-player">
-                        <audio controls preload="metadata" style="width: 100%;">
+                        <audio controls preload="metadata" style="width: 100%; height: 40px;">
                             <source src="${audioPath}" type="audio/mpeg">
                             <source src="${audioPath}" type="audio/ogg">
                             <source src="${audioPath}" type="audio/wav">
@@ -1325,7 +1583,7 @@
                 modalAudio.appendChild(audioPlayer);
             }
             
-            // Audio-Dateien hinzufügen - Ohne Demo/Template Labels
+            // Audio-Dateien hinzufügen - Mit Dateinamen als Titel
             if (product.audio1) createAudioPlayer(product.audio1, 1);
             if (product.audio2) createAudioPlayer(product.audio2, 2);
             if (product.audio3) createAudioPlayer(product.audio3, 3);
