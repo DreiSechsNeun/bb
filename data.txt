@@ -7,7 +7,7 @@ Spotify = https://spotify.com/test
 1:name = Premium Vocals
 1:cover = cover1.png
 1:download = PremiumVocals.zip
-1:trailer = https://youtu.be/UmAIiQw-SdY?si=lj6PuOYQoCyAmbwH
+1:trailer = 
 1:price = 0
 1:audio1 = Vorher.mp3
 1:audio2 = Nachher.mp3
@@ -16,3 +16,4 @@ Spotify = https://spotify.com/test
 1:bild3 = screenshot1.png
 1:bild4 = screenshot2.png
 1:beschreibung = Mit diesem professionellen Template erreicht jeder in kürzester Zeit die bestmöglichsten Ergebnisse.
+
