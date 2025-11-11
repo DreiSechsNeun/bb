@@ -1,5 +1,4 @@
-Übermich = Hey, mein Name ist Bababeats, ich bin Hobby Produzent aus Dortmund und mache YouTube Videos zum Thema Musikproduktion. Hier findest du Produkte die neuen Produzenten den einstieg in die Welt der Musikproduktion möglichst leicht machen sollen oder Drumtkits mit eigenen Sounds.
-Email = test@test.com
+Email = bababeats2025@outlook.de
 Insta = https://instagram.com/test
 YouTube = https://youtube.com/test
 Spotify = https://spotify.com/test
@@ -16,4 +15,5 @@ Spotify = https://spotify.com/test
 1:bild3 = screenshot1.png
 1:bild4 = screenshot2.png
 1:beschreibung = Mit diesem professionellen Template erreicht jeder in kürzester Zeit die bestmöglichsten Ergebnisse.
+
 
